@@ -1,0 +1,46 @@
+{
+  "name": "grunt-image-compare",
+  "description": "Compare 2 images and generate a difference if there is one.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/stimmins/grunt-image-compare",
+  "author": {
+    "name": "Scott",
+    "email": "scott@powershift.tv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stimmins/grunt-image-compare.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stimmins/grunt-image-compare/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/stimmins/grunt-image-compare/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt": "~0.4.5"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "dependencies": {
+    "async": "^0.9.0",
+    "canvas": "~1.0",
+    "imagediff": "^1.0.6"
+  }
+}
