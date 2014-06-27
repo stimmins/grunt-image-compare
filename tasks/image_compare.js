@@ -12,12 +12,16 @@ module.exports = function(grunt) {
   var imagediff = require('imagediff');
   var async = require('async');
 
-  function getImage(source_image) {
-    var image = new Canvas.Image();
+  function matchImageSize(source_image, width, height) {
+      var canvas = new Canvas(width, height);
+      var context = canvas.getContext('2d');
 
-    image.src = source_image;
+      context.globalCompositeOperation = "source-over";
+      context.fillStyle = '#ffffff';
 
-    return imagediff.toImageData(image);
+      context.fillRect(0, 0, width, height);
+      context.drawImage(source_image, 0, 0);
+    return imagediff.toImageData(canvas);
   }
 
   // Please see the Grunt documentation for more information regarding task
@@ -33,10 +37,18 @@ module.exports = function(grunt) {
     var done = this.async();
 
     async.eachSeries(options.images, function(item, callback) {
-      var originalImage = getImage(item.original);
-      var newImage = getImage(item.new);
+      var originalImage = new Canvas.Image();
+      originalImage.src = item.original;
 
-      grunt.log.writeln('Analyzing: ' + item.original);
+      var newImage = new Canvas.Image();
+      newImage.src = item.new;
+
+      var width = Math.max(originalImage.width, newImage.width);
+      var height = Math.max(originalImage.height, newImage.height);
+
+      originalImage = matchImageSize(originalImage, width, height);
+      newImage = matchImageSize(newImage, width, height);
+
       if(imagediff.equal(originalImage, newImage, 0)) {
         grunt.log.writeln('No difference Found: ' + item.original + ' ' + item.new);
         return callback();
